@@ -14,7 +14,7 @@ response_code = search_response.status_code
 
 content = search_response.text
 
-soup = BeautifulSoup(content, "lxml")
+soup = BeautifulSoup(content, "html.parser")
 
 all_reviews = [link['href'] for link in soup.find_all("a", {'data-hook': 'see-all-reviews-link-foot'}, href = True)]
 
@@ -26,11 +26,16 @@ review_page_source = requests.get(reviews_page_url, headers = headers)
 
 final_reviews = []
 
-soup = BeautifulSoup(review_page_source.text, "lxml")
-x = soup.find_all("span", {'data-hook' : 'review-body'}, limit = 10)
+soup = BeautifulSoup(review_page_source.text, "html.parser")
+
+for i in soup.findAll("span", {'data-hook' : 'review-body'}, limit = 10):
+    for k in i.find_all("span"):
+        final_reviews.append(k)
+
+print(final_reviews)
 
 
-print(x)
+
 
     
 
