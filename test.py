@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-
+import re
 
 html_data = '''
 <div>
@@ -11,6 +11,9 @@ html_data = '''
 </div>
 '''
 soup = BeautifulSoup(html_data, 'html.parser')
-x = soup.findAll("div")
+x = soup.find("div")
 y = x.find_all("span")
-print(x)
+
+p = re.compile(r'<.*?>')
+final_text = p.sub('0', str(y))
+print(final_text)
