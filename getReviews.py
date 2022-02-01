@@ -18,6 +18,7 @@ def getreviews(query):
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36'
     }
     query_url =  base + "/dp/" + query
+    #s = requests.Session()
 
     # get request to main product page
     search_response = requests.get(query_url, headers = headers)
@@ -39,8 +40,29 @@ def getreviews(query):
         final_reviews.append(i)
     
     return final_reviews
-    
-print(getreviews("B08L5TNJHG"))
+
+
+
+def process_reviews(final_reviews):
+    '''
+    Function to preprocess the scraped reviews(removes html tags, empty spaces and emojies if any)
+
+    Arguments:
+    Array with each element as a review
+
+    Returns:
+    Processed array without any junk
+    '''
+    processed_reviews = []
+    p = re.compile(r'<.*?>')
+    for r in final_reviews:
+        processed_reviews.append(p.sub('', r))
+
+    return processed_reviews
+
+arr = getreviews("B09G9HR5GX")
+print(arr)
+print(process_reviews(arr))
 
 
 
