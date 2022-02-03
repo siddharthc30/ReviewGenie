@@ -98,7 +98,10 @@ h6 {
 .above-heading {
 	color: #5f4dee;
 	font: 700 0.75rem/0.875rem "Open Sans", sans-serif;
+	font-size: 50px;
 	text-align: center;
+	margin-bottom: 3.25rem
+
 }
 
 .p-heading {
@@ -862,6 +865,7 @@ input[type='checkbox'] {
 
 .cards-1 .h2-heading {
 	margin-bottom: 3.5rem;
+	width: 58rem;
 }
 
 .cards-1 .card {
