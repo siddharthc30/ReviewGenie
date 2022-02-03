@@ -110,12 +110,20 @@
                         <div class="text-container">
                             <h1>Review Genie</h1>
                             <p class="p-large">A one stop platform to get insights on the product you want to purchase from Amazon</p>
-                            <form id="logInForm" data-toggle="validator" data-focus="false">
+                            <!--<form id="logInForm" data-toggle="validator" data-focus="false">
                                 <div class="form-group">
                                     <input type="email" class="form-control-input" id="lemail" required>
                                     <label class="label-control" for="lemail">Enter the ASIN code</label>
                                     <div class="help-block with-errors"></div>
                                 </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn-solid-lg page-scroll">Submit</button>
+                                </div>
+                            </form>-->
+
+                            <form action="/dashboard" method="post">
+                                <input class="form-control" type="text" placeholder="Enter the ASIN code" name="asin" autocomplete="off">
+                                <br>
                                 <div class="form-group">
                                     <button type="submit" class="btn-solid-lg page-scroll">Submit</button>
                                 </div>

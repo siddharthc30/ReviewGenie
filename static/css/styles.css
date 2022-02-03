@@ -244,6 +244,7 @@ a.white {
 .form-group {
 	position: relative;
 	margin-bottom: 1.25rem;
+	font: 400 0.875rem/1.375rem "Open Sans", sans-serif;
 }
 
 .form-group.has-error.has-danger {
