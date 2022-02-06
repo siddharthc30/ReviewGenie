@@ -1,6 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
+import selenium
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import re
+
+options = Options()
+options.add_argument('--headless')
+driver = webdriver.Chrome('/home/siddharthc30/Documents/chromedriver', chrome_options = options)
 
 def getreviews(query):
     '''
@@ -14,27 +21,21 @@ def getreviews(query):
     '''
 
     base = "https://www.amazon.in"
-    headers = {
-    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36'
-    }
     query_url =  base + "/dp/" + query
-    #s = requests.Session()
 
-    # get request to main product page
-    search_response = requests.get(query_url, headers = headers)
-    content = search_response.text
+    driver.get(query_url)
+
+    # navigating to all reviews page
+    button = driver.find_element_by_css_selector("a[data-hook = 'see-all-reviews-link-foot']")
+    button.click()
+
+    content = driver.page_source
     soup = BeautifulSoup(content, "html.parser")
 
-    #finding the link to all reviews page
-    all_reviews = [link for link in soup.find_all("a", {'data-hook': 'see-all-reviews-link-foot'}, href = True)]
-    reviews_page_url = base+' '.join(all_reviews)
-    print(reviews_page_url)
-    #get request to all reviews page
-    review_page_source = requests.get(reviews_page_url, headers = headers)
     final_reviews = []
 
     # parsing and storing the reviews
-    soup = BeautifulSoup(review_page_source.text, "html.parser")
+    soup = BeautifulSoup(content, "html.parser")
     for i in soup.findAll("span", {'data-hook' : 'review-body'}, limit = 10):
         #for k in i.find_all("span"):
         final_reviews.append(i.get_text().strip())
@@ -51,7 +52,7 @@ def process_reviews(final_reviews):
     Array with each element as a review
 
     Returns:
-    Processed array without any emojies
+    Processed array without any emojies 
     '''
     processed_reviews = []
     emoji_pattern = re.compile(
@@ -73,6 +74,11 @@ def process_reviews(final_reviews):
         processed_reviews.append(emoji_pattern.sub('', r))
 
     return processed_reviews
+
+if __name__ == "__main__":
+    x = getreviews("B08CFCK6CW")
+    y = process_reviews(x)
+    print(y)
 
 
 

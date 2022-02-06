@@ -12,7 +12,7 @@ def index():
     return render_template('index.html')
 
 #Dashboard of results route
-@app.route('/<asin>/dashboard', methods = ["POST","GET"])
+@app.route('/<asin>', methods = ["POST","GET"])
 def dashboard(asin):
     asin = request.form.get("asin")
 
@@ -27,10 +27,31 @@ def dashboard(asin):
 
     return render_template("test.html", graphJSON = graphJSON)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+@app.route('/test')
+def test():
+    return render_template("test2.html")
+
 #Error page route
 @app.route('/error')
 def error():
-    return render_template('error.html')
+    return render_template("error.html")
 
 
 
