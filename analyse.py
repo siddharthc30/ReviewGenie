@@ -52,7 +52,7 @@ def opinion_mine(document):
     Returns:
     A dictionary with key as a target word and its value as the opinion of the target word
     '''
-    
+
     opinions = {}
 
     for doc in document:
@@ -64,11 +64,11 @@ def opinion_mine(document):
                 for opinion in s.mined_opinions:
                     target = opinion.target
                     target_text = target.text
-                    target_sentiment = target.sentiment
+                    target_positive = target.confidence_scores.positive
+                    target_negative = target.confidence_scores.negative 
+
                     if target_text not in opinions:
-                        opinions[target_text] = target_sentiment
+                        opinions[target_text] = [target_positive, target_negative]
 
     return opinions    
 
-
-print(opinion_mine(document))
