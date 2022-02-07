@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
 import pandas as pd
 import json
 import plotly
@@ -12,41 +12,24 @@ def index():
     return render_template('index.html')
 
 #Dashboard of results route
-@app.route('/<asin>', methods = ["POST","GET"])
+@app.route('/submit', methods = ["POST","GET"])
+def submit():
+    if request.method == "POST":
+        asin = request.form["asin"]
+        return redirect(url_for("dashboard", asin = asin))
+    else:
+        return redirect(url_for("error"))
+
+@app.route("/<asin>")
 def dashboard(asin):
-    asin = request.form.get("asin")
-
-    df = pd.DataFrame({
-      'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges', 
-      'Bananas'],
-      'Amount': [4, 1, 2, 2, 4, 5],
-      'City': ['SF', 'SF', 'SF', 'Montreal', 'Montreal', 'Montreal']
-    })
-    fig = px.bar(df, x='Fruit', y='Amount', color='City', barmode='group')
-    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-
-    return render_template("test.html", graphJSON = graphJSON)
+    return f"<h1> {asin} </h1>"
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-@app.route('/test')
-def test():
-    return render_template("test2.html")
+# @app.route('/test')
+# def test():
+#     return render_template("test2.html")
 
 #Error page route
 @app.route('/error')

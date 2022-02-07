@@ -1,5 +1,4 @@
 import os
-from xml.dom.xmlbuilder import DocumentLS
 from dotenv import load_dotenv
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
