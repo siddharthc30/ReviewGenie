@@ -75,10 +75,6 @@ def process_reviews(final_reviews):
 
     return processed_reviews
 
-if __name__ == "__main__":
-    x = getreviews("B08CFCK6CW")
-    y = process_reviews(x)
-    print(y)
 
 
 

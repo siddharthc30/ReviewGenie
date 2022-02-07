@@ -2,7 +2,7 @@ import plotly.graph_objects as go
 
 #funciton for plotting the pie chart of sentiment of whole product reviews
 def plot_pie(overall_sentiment):
-    labels = list(overall_sentiment.keys())
+    labels = ['Positive', 'Negative', 'Neutral']
     values = [overall_sentiment['positive_score'], overall_sentiment['negative_score'], overall_sentiment['neutral_score']]
 
     fig = go.Figure(data =[go.Pie(labels = labels, values = values)])

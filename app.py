@@ -4,6 +4,10 @@ import json
 import plotly
 import plotly.express as px
 
+from getReviews import *
+from analyse import *
+from plotGraphs import *
+
 app = Flask(__name__)
 
 #home route
@@ -11,7 +15,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-#Dashboard of results route
+#submitting the asin code
 @app.route('/submit', methods = ["POST","GET"])
 def submit():
     if request.method == "POST":
@@ -20,9 +24,17 @@ def submit():
     else:
         return redirect(url_for("error"))
 
+#dashboard route
 @app.route("/<asin>")
 def dashboard(asin):
-    return f"<h1> {asin} </h1>"
+    reviews = getreviews(asin)
+    clean_reviews = process_reviews(reviews)
+    sentiment = sentiment_analysis(clean_reviews)
+    opinion = opinion_mine(clean_reviews)
+
+    x = plot_pie(sentiment)
+    y = plot_bar(opinion)
+    return f"<h1> plots</h1><body> {x, y} </body>"
 
 
 
