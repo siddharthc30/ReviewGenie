@@ -9,7 +9,7 @@ options = Options()
 options.add_argument('--headless')
 driver = webdriver.Chrome('/home/siddharthc30/Documents/chromedriver', chrome_options = options)
 
-def getreviews(query):
+def getdata(query):
     '''
     Function to extract top 10 reviews of a product on amazon.in
 
@@ -19,11 +19,21 @@ def getreviews(query):
     Returns:
     An array with raw reviews(contains html tags)
     '''
+    #dictionary to store image url, rating and reviews
+    data = {}
 
     base = "https://www.amazon.in"
     query_url =  base + "/dp/" + query
 
     driver.get(query_url)
+
+    content_for_image = driver.page_source
+    soup = BeautifulSoup(content_for_image, "html.parser")
+
+    #getting image url
+    image_tag = soup.find("img", {'data-a-image-name':'landingImage'})
+    image_url = image_tag.get('src')
+    data['Image'] = image_url
 
     # navigating to all reviews page
     button = driver.find_element_by_css_selector("a[data-hook = 'see-all-reviews-link-foot']")
@@ -32,15 +42,25 @@ def getreviews(query):
     content = driver.page_source
     soup = BeautifulSoup(content, "html.parser")
 
+    #getting overal product rating
+    rating_tag = soup.find("span", {'data-hook':'rating-out-of-text'})
+    rating_text = rating_tag.get_text()
+    r = rating_text.split()
+    product_rating = r[0]
+    data['Rating'] = product_rating
+
+
+    #getting user reviews
     final_reviews = []
 
     # parsing and storing the reviews
-    soup = BeautifulSoup(content, "html.parser")
     for i in soup.findAll("span", {'data-hook' : 'review-body'}, limit = 10):
         #for k in i.find_all("span"):
         final_reviews.append(i.get_text().strip())
     
-    return final_reviews
+    data['Reviews'] = final_reviews
+    
+    return data
 
 
 
@@ -75,7 +95,8 @@ def process_reviews(final_reviews):
 
     return processed_reviews
 
-
+if __name__ =="__main__":
+    print(getdata("B01J1CFO5I"))
 
 
 

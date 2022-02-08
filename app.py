@@ -4,7 +4,7 @@ import json
 import plotly
 import plotly.express as px
 
-from getReviews import *
+from getData import *
 from analyse import *
 from plotGraphs import *
 
@@ -27,14 +27,14 @@ def submit():
 #dashboard route
 @app.route("/<asin>")
 def dashboard(asin):
-    reviews = getreviews(asin)
-    clean_reviews = process_reviews(reviews)
+    data = getdata(asin)
+    clean_reviews = process_reviews(data['Reviews'])
     sentiment = sentiment_analysis(clean_reviews)
     opinion = opinion_mine(clean_reviews)
 
     x = plot_pie(sentiment)
     y = plot_bar(opinion)
-    return render_template("dashboard.html", pieplot = x, barplot = y)
+    return render_template("dashboard.html", pieplot = x, barplot = y, image_url = data['Image'], rating = data['Rating'])
 
 
 
