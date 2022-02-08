@@ -34,14 +34,14 @@ def dashboard(asin):
 
     x = plot_pie(sentiment)
     y = plot_bar(opinion)
-    return render_template("dummy.html", pieplot = x, barplot = y, image_url = image, rating = rating)
+    return render_template("dashboard.html", pieplot = x, barplot = y)
 
 
 
 
-@app.route('/test')
-def test():
-    return render_template("dashboard.html")
+# @app.route('/test')
+# def test():
+#     return render_template("dashboard.html")
 
 #Error page route
 @app.route('/error')
