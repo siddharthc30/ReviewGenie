@@ -65,7 +65,7 @@ You are good to go!! The page that you get redirected to has all the information
 
 ## Example
 Here is a demo on how to run the application,
-![demo](https://drive.google.com/file/d/1VWRU78UUJtxdvBajE90n1Dkwhs_5OWqk/view?usp=sharing)
+[demo](https://drive.google.com/file/d/1VWRU78UUJtxdvBajE90n1Dkwhs_5OWqk/view?usp=sharing)
 
 ## Results
 ### Home/Landing page:
