@@ -19,7 +19,7 @@ def getdata(query):
     Returns:
     An array with raw reviews(contains html tags)
     '''
-    #dictionary to store image url, rating and reviews
+    #dictionary to store product name, image url, rating and reviews
     data = {}
 
     base = "https://www.amazon.in"
@@ -27,42 +27,51 @@ def getdata(query):
 
     driver.get(query_url)
 
+
     content_for_image = driver.page_source
     soup = BeautifulSoup(content_for_image, "html.parser")
-    
-    #get product name
-    title = soup.find('title')
-    title = title.get_text()
-    data['Product_name'] = title
+    try:
+        if soup.find('title').get_text() == "404-Document Not Found":
+            return None
+        
+        else:
+            #get product name
+            title = soup.find('title')
+            title = title.get_text()
+            data['Product_name'] = title
 
-    #getting image url
-    image_tag = soup.find("img", {'data-a-image-name':'landingImage'})
-    image_url = image_tag.get('src')
-    data['Image'] = image_url
+            #getting image url
+            image_tag = soup.find("img", {'data-a-image-name':'landingImage'})
+            image_url = image_tag.get('src')
+            data['Image'] = image_url
 
-    # navigating to all reviews page
-    button = driver.find_element_by_css_selector("a[data-hook = 'see-all-reviews-link-foot']")
-    button.click()
+            # navigating to all reviews page
+            button = driver.find_element_by_css_selector("a[data-hook = 'see-all-reviews-link-foot']")
+            button.click()
 
-    content = driver.page_source
-    soup = BeautifulSoup(content, "html.parser")
+            content = driver.page_source
+            soup = BeautifulSoup(content, "html.parser")
 
-    #getting overal product rating
-    rating_tag = soup.find("span", {'data-hook':'rating-out-of-text'})
-    rating_text = rating_tag.get_text()
-    product_rating = rating_text
-    data['Rating'] = product_rating
+            #getting overal product rating
+            rating_tag = soup.find("span", {'data-hook':'rating-out-of-text'})
+            rating_text = rating_tag.get_text()
+            product_rating = rating_text
+            data['Rating'] = product_rating
 
 
-    #getting user reviews
-    final_reviews = []
+            #getting user reviews
+            final_reviews = []
 
-    # parsing and storing the reviews
-    for i in soup.findAll("span", {'data-hook' : 'review-body'}, limit = 10):
-        #for k in i.find_all("span"):
-        final_reviews.append(i.get_text().strip())
-    
-    data['Reviews'] = final_reviews
+            # parsing and storing the reviews
+            for i in soup.findAll("span", {'data-hook' : 'review-body'}, limit = 10):
+                #for k in i.find_all("span"):
+                final_reviews.append(i.get_text().strip())
+            
+            data['Reviews'] = final_reviews
+
+    except Exception as e:
+        print(e)
+        data = None
     
     return data
 

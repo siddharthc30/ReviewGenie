@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import plotly
 import plotly.express as px
+import re
 
 from getData import *
 from analyse import *
@@ -21,7 +22,10 @@ def index():
 def submit():
     if request.method == "POST":
         asin = request.form["asin"]
-        return redirect(url_for("dashboard", asin = asin))
+        if re.match('^[A-Z0-9]+$', asin):
+            return redirect(url_for("dashboard", asin = asin))
+        else:
+            return redirect(url_for("error"))
     else:
         return redirect(url_for("error"))
 
@@ -29,7 +33,9 @@ def submit():
 @app.route("/<asin>")
 def dashboard(asin):
     data = getdata(asin)
-    if not data:
+    if data == None:
+        return redirect(url_for("error"))
+    elif not data:
         return redirect(url_for("error"))
     else:
         clean_reviews = process_reviews(data['Reviews'])
@@ -40,7 +46,7 @@ def dashboard(asin):
         y = plot_bar(opinion)
         return render_template("dashboard.html", pieplot = x, barplot = y, title = data['Product_name'], image_url = data['Image'], rating = data['Rating'])
 
-    
+
 #Error page route
 @app.route('/error')
 def error():
