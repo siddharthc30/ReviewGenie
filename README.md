@@ -8,10 +8,7 @@ Complete amazon product review analysis under one hood. Review Genie is a web ap
 <details open="open">
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
+      <a href="#built-with">Built With</a>
     </li>
     <li><a href="#problem-addressed">Problem Addressed</a></li>
     <li>
@@ -29,10 +26,6 @@ Complete amazon product review analysis under one hood. Review Genie is a web ap
   </ol>
 </details>
 
-## About The Project
-
-
-
 ### Built With
 1. Python
 2. Flask
@@ -48,8 +41,9 @@ Helping customers understand about the product they want to buy on Amazon throug
 
 ## Getting Started
 ### Prerequisites
-To install the required prerequisite modules, just run
+- To install the required prerequisite modules, just run
 ``` pip install -r requirements.txt```
+- Install a recent chrome driver and save it in the same folder as this project. Change the path of the chrome driver to your path in ```getData.py line 10```
 
 
 ### Run it
@@ -70,12 +64,21 @@ Here is a demo on how to run the application,
 ![demo]()
 
 ## Results
+### Home/Landing page:
+![home](https://user-images.githubusercontent.com/53928899/153270456-e228b959-aa04-4f1d-9ff6-a42355445284.png)
+
+
+
 
 ## New!
+Opinion mining of the comments of the user.
 
 
 ## Coming up
-### 
+### Personalized experience
+- Add user login system, so that they can have a personlaized experience where they can track their activity.
+### New features
+- Add more features to the dashboard such as word cloud of key words.
 
 
 
