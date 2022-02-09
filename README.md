@@ -2,6 +2,8 @@
 
 Complete amazon product review analysis under one hood. Review Genie is a web application that helps users to understand more and provides insights about fellow customers and users regarding their opinion and thoughts on a certain product the user wants to purchase on Amazon(IN).
 
+## Disclaimer
+This project uses web scraping to collect information, I don't know if its right to host a web application that scrapes information from a popular website such as Amazon. I will soon find out a solution for this and host the project ASAP.
 
 ## Summary of Contents
 
@@ -44,6 +46,8 @@ Helping customers understand about the product they want to buy on Amazon throug
 - To install the required prerequisite modules, just run
 ``` pip install -r requirements.txt```
 - Install a recent chrome driver and save it in the same folder as this project. Change the path of the chrome driver to your path in ```getData.py line 10```
+- You would also need an Azure account to get the keys of the API used.
+[Click here](https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/sentiment-opinion-mining/quickstart?pivots=programming-language-python) to know about the API used
 
 
 ### Run it
