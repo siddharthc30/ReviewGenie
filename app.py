@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 #home route
 @app.route('/')
+@app.route('/home')
 def index():
     return render_template('index.html')
 
@@ -28,26 +29,27 @@ def submit():
 @app.route("/<asin>")
 def dashboard(asin):
     data = getdata(asin)
-    clean_reviews = process_reviews(data['Reviews'])
-    sentiment = sentiment_analysis(clean_reviews)
-    opinion = opinion_mine(clean_reviews)
+    if not data:
+        return redirect(url_for("error"))
+    else:
+        clean_reviews = process_reviews(data['Reviews'])
+        sentiment = sentiment_analysis(clean_reviews)
+        opinion = opinion_mine(clean_reviews)
 
-    x = plot_pie(sentiment)
-    y = plot_bar(opinion)
-    return render_template("dashboard.html", pieplot = x, barplot = y, image_url = data['Image'], rating = data['Rating'])
+        x = plot_pie(sentiment)
+        y = plot_bar(opinion)
+        return render_template("dashboard.html", pieplot = x, barplot = y, title = data['Product_name'], image_url = data['Image'], rating = data['Rating'])
 
-
-
-
-# @app.route('/test')
-# def test():
-#     return render_template("dashboard.html")
-
+    
 #Error page route
 @app.route('/error')
 def error():
     return render_template("error.html")
 
+#fix page route
+@app.route('/fixing')
+def page_fix():
+    return render_template("fixing.html")
 
 
 #strarting the app

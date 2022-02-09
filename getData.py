@@ -29,6 +29,11 @@ def getdata(query):
 
     content_for_image = driver.page_source
     soup = BeautifulSoup(content_for_image, "html.parser")
+    
+    #get product name
+    title = soup.find('title')
+    title = title.get_text()
+    data['Product_name'] = title
 
     #getting image url
     image_tag = soup.find("img", {'data-a-image-name':'landingImage'})

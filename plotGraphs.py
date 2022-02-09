@@ -42,3 +42,4 @@ def plot_bar(opinion):
     return barjson
 
 
+

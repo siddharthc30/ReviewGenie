@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/fixing">
                             <i class="nc-icon nc-circle-09"></i>
                             <p>User Profile</p>
                         </a>
@@ -50,12 +50,12 @@
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="/fixing">
                                     <span class="no-icon">Account</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="/fixing">
                                     <span class="no-icon">Log out</span>
                                 </a>
                             </li>
@@ -70,8 +70,7 @@
                         <div class="col-md-8">
                             <div class="card ">
                                 <div class="card-header ">
-                                    <h4 class="card-title">product Image</h4>
-                                    <p class="card-category">Last Campaign Performance</p>
+                                    <h2 class="card-title">{{ title }}</h2>
                                     <img src = {{ image_url }} alt="product image">
                                 </div>
                                 <div class="card-body ">
@@ -82,8 +81,8 @@
                         <div class="col-md-4">
                             <div class="card ">
                                 <div class="card-header ">
-                                    <h4 class="card-title">Product rating</h4>
-                                    <h5> {{ rating }} </h5>
+                                    <h2 class="card-title">Product rating</h2>
+                                    <h4> {{ rating }} </h4>
                                 </div>
                                 <div class="card-body ">
                                    
@@ -113,7 +112,6 @@
                             <div class="card ">
                                 <div class="card-header ">
                                     <h4 class="card-title">User opinion</h4>
-                                    <p class="card-category">All products including Taxes</p>
                                     <div id="barchart">
 
                                     </div>
