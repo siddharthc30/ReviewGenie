@@ -4,7 +4,7 @@ import json
 
 #funciton for plotting the pie chart of sentiment of whole product reviews
 def plot_pie(overall_sentiment):
-    labels = ['Negative', 'positive', 'Neutral']
+    labels = ['Positive', 'Negative', 'Neutral']
     values = [overall_sentiment['positive_score'], overall_sentiment['negative_score'], overall_sentiment['neutral_score']]
 
     fig = go.Figure(data =[go.Pie(labels = labels, values = values)])
@@ -40,6 +40,5 @@ def plot_bar(opinion):
     barjson = json.dumps(fig, cls = plotly.utils.PlotlyJSONEncoder)
     #fig.show()
     return barjson
-
 
 

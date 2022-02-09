@@ -45,8 +45,7 @@ def getdata(query):
     #getting overal product rating
     rating_tag = soup.find("span", {'data-hook':'rating-out-of-text'})
     rating_text = rating_tag.get_text()
-    r = rating_text.split()
-    product_rating = r[0]
+    product_rating = rating_text
     data['Rating'] = product_rating
 
 
